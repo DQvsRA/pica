@@ -30,12 +30,13 @@
     "webworkify": "1.0.0"
   },
   "devDependencies": {
+    "ansi": "0.3.x",
+    "benchmark": "1.0.x",
     "browserify": "*",
+    "canvas": "1.1.x",
     "eslint": "0.10.1",
     "eslint-plugin-nodeca": "^1.0.3",
-    "uglify-js": "*",
-    "canvas": "1.1.x",
-    "benchmark": "1.0.x",
-    "ansi": "0.3.x"
+    "gulp-livereload": "^3.0.2",
+    "uglify-js": "*"
   }
 }

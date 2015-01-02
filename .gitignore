@@ -3,3 +3,4 @@ node_modules/
 v8.log
 *.sublime-project
 *.sublime-workspace
+*.conf
