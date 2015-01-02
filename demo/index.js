@@ -46,7 +46,9 @@ function updateOrig() {
 }
 
 var boxBlurCanvasRGB = function ( canvas, radius, iterations ){
-	if ( isNaN(radius) || radius < 1 ) return;
+	// Blur version from http://www.quasimondo.com/BoxBlurForCanvas/FastBlurDemo.html
+    
+    if ( isNaN(radius) || radius < 1 ) return;
 	
 	radius |= 0;
 	
@@ -215,16 +217,17 @@ var updateResized = _.debounce(function () {
     transferable        : true
   }, function (err) {
     
-    boxBlurCanvasRGB(dst, boxBlurAmount, 1);
+    boxBlurCanvasRGB(dst, boxBlurAmount, boxBlurIteractions);
       
     time = (performance.now() - start).toFixed(2);
     if (unsharpAmount) {
-      $('#dst-info').text(_.template('<%= time %>ms, <%= info %>, Unsharp [<%= amount %>, 1.0, <%= threshold %>, <%= blur %>]', {
+      $('#dst-info').text(_.template('<%= time %>ms, <%= info %>, Unsharp [<%= amount %>, 1.0, <%= threshold %>, <%= blur %>, <%= iteractions %>]', {
         time        : time,
         info        : qualityInfo[quality],
         amount      : unsharpAmount,
         threshold   : unsharpThreshold,
-        blur        : boxBlurAmount
+        blur        : boxBlurAmount,
+        iteractions : boxBlurIteractions
       }));
     } else {
       $('#dst-info').text(_.template('<%= time %>ms, <%= info %>, Unsharp off', {
@@ -244,7 +247,8 @@ var
     quality             = Number($('#pica-quality').val()),
     unsharpAmount       = Number($('#pica-unsharp-amount').val()),
     unsharpThreshold    = Number($('#pica-unsharp-threshold').val()),
-    boxBlurAmount       = Number($('#pica-boxblur-amount').val()) || 0
+    boxBlurAmount       = Number($('#pica-boxblur-amount').val()) || 0,
+    boxBlurIteractions  = Number($('#pica-boxblur-iterctions').val())
 ;
 
 img.src = imageEncoded;
@@ -276,6 +280,10 @@ $('#pica-boxblur-ammount').on('change', function () {
     updateResized();
 });
 
+$('#pica-boxblur-iterctions').on('change', function () {
+    boxBlurIteractions = Number($('#pica-boxblur-iterctions').val());
+    updateResized();
+});
 
 $('#upload-btn, #src').on('click', function () {
   $('#upload').trigger('click');
@@ -286,3 +294,4 @@ $('#upload').on('change', function () {
   if (files.length === 0) { return; }
   img.src = window.URL.createObjectURL(files[0]);
 });
+
