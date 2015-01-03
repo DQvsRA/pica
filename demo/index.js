@@ -130,7 +130,6 @@ $(window).on('resize', updateResized);
 $('#dst-pica').on('click', updateResized);
 $('#dst-cvs').on('click', updateResized);
 
-
 $('#pica-quality').on('change', function () {
   quality = Number($('#pica-quality').val());
   updateResized();
@@ -152,12 +151,7 @@ $('#pica-boxblur-ammount').on('change', function () {
 $('#pica-boxblur-iterctions').on('change', function () {
     boxBlurIteractions = Number($('#pica-boxblur-iterctions').val());
     updateResized();
-    // TODO
-    // REALIZE THIS
-    // http://www.quasimondo.com/BoxBlurForCanvas/FastBlur2Demo.html
 });
-
-
 
 $('#upload-btn, #src').on('click', function () {
   $('#upload').trigger('click');
