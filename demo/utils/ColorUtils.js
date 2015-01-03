@@ -10,29 +10,25 @@ window.ColorUtils = {
      * @param   Number  b       The blue color value
      * @return  Array           The HSV representation
      */
-    rgbToHsv : function (r, g, b){
-        var DEVIDE_255 = 1 / 255;
-        var DEVIDE_6 = 1 / 6;
-    
-        r = r*DEVIDE_255, g = g*DEVIDE_255, b = b*DEVIDE_255;
+    rgbToHsv : function rgbToHsv(r, g, b){
+        r = r/255, g = g/255, b = b/255;
         var max = Math.max(r, g, b), min = Math.min(r, g, b);
         var h, s, v = max;
 
         var d = max - min;
-        var DEVIDE_D = 1 / d;
-        
         s = max == 0 ? 0 : d / max;
 
-        if ( max == min ) {
+        if(max == min){
             h = 0; // achromatic
-        } else {
+        }else{
             switch(max){
-                case r: h = (g - b) * DEVIDE_D + (g < b ? 6 : 0); break;
-                case g: h = (b - r) * DEVIDE_D + 2; break;
-                case b: h = (r - g) * DEVIDE_D + 4; break;
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
             }
-            h *= DEVIDE_6;
+            h /= 6;
         }
+
         return [h, s, v];
     },
         
